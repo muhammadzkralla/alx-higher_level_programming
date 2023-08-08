@@ -1,4 +1,4 @@
-#!/usr/bin/pyhton3
+#!/usr/bin/python3
 """A function that prints numbers from 1 to 100 but with a simple transformation"""
 
 
