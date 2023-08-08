@@ -3,4 +3,3 @@
 
 for letter in range(ord('a'), ord('a') + 26):
     print("{}".format(chr(letter)), end="")
-
