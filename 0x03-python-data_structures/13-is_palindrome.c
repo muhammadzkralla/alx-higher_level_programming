@@ -68,6 +68,8 @@ int is_palindrome(listint_t **head)
 		r--;
 	}
 
+	free(indicesMap);
+
 	return (1);
 }
 
