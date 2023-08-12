@@ -1,40 +1,26 @@
 #include "lists.h"
 
 /**
- * iterateLinkedList - creates a map of the indices and the values.
- * with int pointer.
+ * reverse_listint - reverses a linked list
+ * @head: pointer to the first node in the list
  *
- * @head: double pointer to the linked list
- * @length: size of the linked list
- *
- * Return: int pointe, the indices map.
+ * Return: pointer to the first node in the new list
  */
-int *iterateLinkedList(listint_t **head, int *length)
+void reverse_listint(listint_t **head)
 {
-
-	if (*head == NULL)
-	{
-		return (NULL);
-	}
-
-	int *indicesMap = (int *)malloc(sizeof(int));
-	int currentIdx = 0;
+	listint_t *prev = NULL;
 	listint_t *current = *head;
+	listint_t *next = NULL;
 
-	while (current != NULL)
+	while (current)
 	{
-		indicesMap[currentIdx] = current->n;
-
-		current = current->next;
-		currentIdx++;
-
-		indicesMap = (int *)realloc(indicesMap, (currentIdx + 1) * sizeof(int));
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
 	}
 
-
-	*length = currentIdx;
-
-	return (indicesMap);
+	*head = prev;
 }
 
 /**
@@ -45,42 +31,42 @@ int *iterateLinkedList(listint_t **head, int *length)
  */
 int is_palindrome(listint_t **head)
 {
-	int sz = 0;
-	int *indicesMap = iterateLinkedList(head, &sz);
-	int l = 0;
-	int r = sz - 1;
+	listint_t *slow = *head, *fast = *head, *temp = *head, *dup = NULL;
 
 	if (*head == NULL || (*head)->next == NULL)
-	{
 		return (1);
-	}
 
-	while (l <= r)
+	while (1)
 	{
-
-
-		if (indicesMap[l] != indicesMap[r])
+		fast = fast->next->next;
+		if (!fast)
 		{
-			return (0);
+			dup = slow->next;
+			break;
 		}
-
-		l++;
-		r--;
+		if (!fast->next)
+		{
+			dup = slow->next->next;
+			break;
+		}
+		slow = slow->next;
 	}
 
-	free(indicesMap);
+	reverse_listint(&dup);
 
-	return (1);
+	while (dup && temp)
+	{
+		if (temp->n == dup->n)
+		{
+			dup = dup->next;
+			temp = temp->next;
+		}
+		else
+			return (0);
+	}
+
+	if (!dup)
+		return (1);
+
+	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
