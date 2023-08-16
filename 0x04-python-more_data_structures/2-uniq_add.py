@@ -3,7 +3,7 @@
 
 def uniq_add(my_list=[]):
     """
-    Function to add all unique
+    A function that adds all unique
     integers in a list (only once for each integer)
     """
     new_list = []
@@ -13,4 +13,3 @@ def uniq_add(my_list=[]):
             sum += num
             new_list.append(num)
     return sum
-
